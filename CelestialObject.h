@@ -1,9 +1,5 @@
-#include <cmath>
-#include <string>
-#include <iostream>
-
 #define DNGP 27.13
-#define ANGP 192.85
+#define ANGP (12.0 * (360.0/24.0) + 51.4 * (360.0/(24.0*60.0)))
 #define LNCP 122.93314
 
 #define DEGTORAD (3.14159265358979323846/180.0)
@@ -11,6 +7,18 @@
 
 
 using namespace std;
+
+float asinDEG(float x) {
+    return RADTODEG * asin(x);
+}
+
+float sinDEG(float x) {
+    return sin(DEGTORAD * x);
+}
+
+float cosDEG(float x) {
+    return cos(DEGTORAD * x);
+}
 
 //The object that will hold the data for each datapoint
 class CelestialObject {
@@ -49,8 +57,8 @@ class CelestialObject {
     //Update the galactocentric coordinates with the current equatorial coordinates
     void eqTOgc() {
         //Conversion equations from equatorial to galactocentric
-        latitude = RADTODEG*asin(sin(DEGTORAD*DNGP)*sin(DEGTORAD*declination) + cos(DEGTORAD*DNGP)*cos(DEGTORAD*declination)*cos(DEGTORAD*(rightAscension-ANGP)));
-        longitude = LNCP - RADTODEG*asin((cos(DEGTORAD*declination)*sin(DEGTORAD*(rightAscension-ANGP)))/(cos(DEGTORAD*latitude)));
+        latitude = asinDEG( sinDEG(DNGP)*sinDEG(declination) + cosDEG(DNGP));
+        longitude = LNCP - asinDEG( (cosDEG(declination) * sinDEG(rightAscension - ANGP)) / cosDEG(latitude));
     }
 
     //print the motion in the sky
