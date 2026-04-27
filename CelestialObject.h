@@ -3,8 +3,12 @@
 #include <iostream>
 
 #define DNGP 27.13
-#define ANGP 771.4
+#define ANGP 192.85
 #define LNCP 122.93314
+
+#define DEGTORAD (3.14159265358979323846/180.0)
+#define RADTODEG (1.0/DEGTORAD)
+
 
 using namespace std;
 
@@ -45,17 +49,36 @@ class CelestialObject {
     //Update the galactocentric coordinates with the current equatorial coordinates
     void eqTOgc() {
         //Conversion equations from equatorial to galactocentric
-        latitude = asin(sin(DNGP)*sin(declination) + cos(DNGP)*cos(declination)*cos(rightAscension-ANGP));
-        longitude = LNCP - asin((cos(declination)*sin(rightAscension-ANGP))/(cos(latitude)));
+        latitude = RADTODEG*asin(sin(DEGTORAD*DNGP)*sin(DEGTORAD*declination) + cos(DEGTORAD*DNGP)*cos(DEGTORAD*declination)*cos(DEGTORAD*(rightAscension-ANGP)));
+        longitude = LNCP - RADTODEG*asin((cos(DEGTORAD*declination)*sin(DEGTORAD*(rightAscension-ANGP)))/(cos(DEGTORAD*latitude)));
     }
 
-    //Print helper
-    void print() {
+    //print the motion in the sky
+    void printMot() {
         if(name!="\0") {
             cout << name << ": ";
             cout << dist << " : " << plax << " : " << pMotion << '\n';
         } else {
             cout << dist << " : " << plax << " : " << pMotion << '\n';
+        }
+    }
+    
+    //print the Galactocentric Coords
+        void printGC() {
+        if(name!="\0") {
+            cout << name << ": ";
+            cout << dist << " : " << longitude << " : " << latitude << '\n';
+        } else {
+            cout << dist << " : " << longitude << " : " << latitude << '\n';
+        }
+    }
+    //Print the Equatorial Coords
+    void printEQ() {
+        if(name!="\0") {
+            cout << name << ": ";
+            cout << dist << " : " << declination << " : " << rightAscension << '\n';
+        } else {
+            cout << dist << " : " << declination << " : " << rightAscension << '\n';
         }
     }
 };
