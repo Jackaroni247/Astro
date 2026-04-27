@@ -1,6 +1,10 @@
+#include <cmath>
+#include <string>
+#include <iostream>
+
 #define DNGP 27.13
 #define ANGP (12.0 * (360.0/24.0) + 51.4 * (360.0/(24.0*60.0)))
-#define LNCP 122.93314
+#define LNCP 32.93192
 
 #define DEGTORAD (3.14159265358979323846/180.0)
 #define RADTODEG (1.0/DEGTORAD)
@@ -8,16 +12,20 @@
 
 using namespace std;
 
-float asinDEG(float x) {
+double asinDEG(double x) {
     return RADTODEG * asin(x);
 }
 
-float sinDEG(float x) {
+double sinDEG(double x) {
     return sin(DEGTORAD * x);
 }
 
-float cosDEG(float x) {
+double cosDEG(double x) {
     return cos(DEGTORAD * x);
+}
+
+double atan2DEG(double x, double y) {
+    RADTODEG * atan2(x,y);
 }
 
 //The object that will hold the data for each datapoint
@@ -27,16 +35,16 @@ class CelestialObject {
     string name = "\0";
 
     //fundamental properties
-    float dist, plax, pMotion;
+    double dist, plax, pMotion;
 
     //Equitorial coordinates
-    float declination, rightAscension;
+    double declination, rightAscension;
 
     //Galactocentric coordinates
-    float longitude, latitude;
+    double longitude, latitude;
 
     //Create object without a name
-    CelestialObject(float ndist, float nplax, float npMotion, float ndeclination, float nrightAscension) {
+    CelestialObject(double ndist, double nplax, double npMotion, double ndeclination, double nrightAscension) {
         dist = ndist;
         plax = nplax;
         pMotion = npMotion;
@@ -45,7 +53,7 @@ class CelestialObject {
     }
 
     //Create object without a name
-    CelestialObject(string nname, float ndist, float nplax, float npMotion, float ndeclination, float nrightAscension) {
+    CelestialObject(string nname, double ndist, double nplax, double npMotion, double ndeclination, double nrightAscension) {
         name = nname;
         dist = ndist;
         plax = nplax;
@@ -54,14 +62,18 @@ class CelestialObject {
         rightAscension = nrightAscension;
     }
 
-    //Update the galactocentric coordinates with the current equatorial coordinates
+    //Update the galactic coordinates with the current equatorial coordinates
     void eqTOgc() {
-        //Conversion equations from equatorial to galactocentric
-        latitude = asinDEG( sinDEG(DNGP)*sinDEG(declination) + cosDEG(DNGP));
-        longitude = LNCP - asinDEG( (cosDEG(declination) * sinDEG(rightAscension - ANGP)) / cosDEG(latitude));
+        //Conversion equations from equatorial to galactic
+        latitude = asinDEG( sinDEG(DNGP)*sinDEG(declination) + cosDEG(DNGP) * cosDEG(declination) * cosDEG(rightAscension - ANGP));
+        
+        double y = cosDEG(declination) * sinDEG(rightAscension - ANGP);
+        double x = sinDEG(declination) * cosDEG(DNGP) - cosDEG(declination) * sinDEG(DNGP) * cosDEG(rightAscension - ANGP);
+        
+        longitude = LNCP + atan2DEG(y, x);
     }
 
-    //print the motion in the sky
+    //print the Motion in the sky
     void printMot() {
         if(name!="\0") {
             cout << name << ": ";
@@ -71,7 +83,7 @@ class CelestialObject {
         }
     }
     
-    //print the Galactocentric Coords
+    //print the Galactic Coords
         void printGC() {
         if(name!="\0") {
             cout << name << ": ";
