@@ -2,8 +2,8 @@
 #include <string>
 #include <iostream>
 
-#define DNGP 27.13
-#define ANGP (12.0 * (360.0/24.0) + 51.4 * (360.0/(24.0*60.0)))
+#define DNGP 27.12825
+#define ANGP 192.85948
 #define LNCP 32.93192
 
 #define DEGTORAD (3.14159265358979323846/180.0)
@@ -102,3 +102,15 @@ class CelestialObject {
         }
     }
 };
+
+int main(){
+    CelestialObject bound1("Bound1", 1.0, 1.0, 1.0, -45, 16*15);
+    CelestialObject bound2("Bound1", 1.0, 1.0, 1.0, -10, 19*15);
+    bound1.eqTOgc();
+    bound1.printEQ();
+    bound1.printGC();
+    bound2.eqTOgc();
+    bound2.printEQ();
+    bound2.printGC();
+    return 1;
+}
