@@ -25,7 +25,7 @@ double cosDEG(double x) {
 }
 
 double atan2DEG(double x, double y) {
-    RADTODEG * atan2(x,y);
+    return RADTODEG * atan2(x,y);
 }
 
 //The object that will hold the data for each datapoint
