@@ -1,16 +1,13 @@
-#Utility Libraries
-import matplotlib.pyplot as plt
-import time
-
-#Astrophysics Libraries
-import astropy.units as u
-from astropy.coordinates import SkyCoord
 from astroquery.gaia import Gaia
+import numpy as np
 
-Gaia.ROW_LIMIT = 8
-coord = SkyCoord(ra=280, dec=-60, unit=(u.degree, u.degree), frame='icrs')
-width = u.Quantity(0.01, u.deg)
-height = u.Quantity(0.01, u.deg)
-r = Gaia.query_object_async(coordinate=coord, width=width, height=height)
+gaiadr3_table = Gaia.load_table('gaiadr3.gaia_source')
+for column in gaiadr3_table.columns:
+  print(column.name)
 
-r.pprint(max_lines=12, max_width=130)
+
+#for i in np.arange(0,360,0.1):
+#	print(i);
+
+
+#job = Gaia.launch_job("SELECT * FROM gaiadr3.gaia_source WHERE COORD1(PIXEL, galactic, ra, dec) > 10 AND COORD1(PIXEL, galactic, ra, dec) < 20")
