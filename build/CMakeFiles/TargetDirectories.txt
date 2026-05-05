@@ -1,0 +1,3 @@
+/home/jharris/Documents/Astrophysics Paper/build/CMakeFiles/Transformations.dir
+/home/jharris/Documents/Astrophysics Paper/build/CMakeFiles/edit_cache.dir
+/home/jharris/Documents/Astrophysics Paper/build/CMakeFiles/rebuild_cache.dir

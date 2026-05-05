@@ -1,13 +1,18 @@
+#include <pybind11/pybind11.h>
+#include <Python.h>
 #include "headers/CelestialObject.h"
 #include "headers/OortConstants.h"
 
 using namespace std;
+namespace py = pybind11;
 
-int main(){
-    //Coordinate coord1(0, 10.0, 10.0);
-    //CelestialObject Bob("Bob", 100.0, 10.0, 1.0, coord1);
-    //Bob.convert();
-    //Bob.printGC();
+float transform(){
     cout << getDist(0);
-    return 1;
+    return 1.0;
+}
+
+PYBIND11_MODULE(Transformations, Module) {
+	Module.doc() = "Python module written in C++ for astrophysics transformations";
+
+	Module.def("transform", &transform);
 }
