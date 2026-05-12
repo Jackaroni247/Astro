@@ -32,11 +32,17 @@ double atan2DEG(double x, double y) {
 
 //Gets the distance to search for the degree
 double getDist(double l) {
-	double n = 4.0;
-	double a = pow(SUNTOCENTER,-n);
-	double b = a/10;
-	double base = (1.0)/(a*pow(cosDEG(l),n) + b*pow(sinDEG(l),n));
-	return pow(base,(1.0/n));
+	double n = 2.0;
+	double a = pow(14.0,n);
+	double b = pow(2.0,n);
+	double d = 14.0-SUNTOCENTER;
+	double numerator = -b*d + sqrt(
+				a*b*b*pow(cosDEG(l),2) +
+				a*a*b*pow(sinDEG(l),2)) -
+				a*b*d*d*pow(sinDEG(l),2)
+				)
+	double denominator = b*pow(cosDEG(l),2) + a*pow(sinDEG(l),2);
+	return numerator/denominator;
 }
 
 double calc_Galactic_Radius(double l, double b, double d) {
