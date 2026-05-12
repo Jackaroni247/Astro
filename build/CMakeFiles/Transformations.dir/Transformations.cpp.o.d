@@ -352,6 +352,6 @@ CMakeFiles/Transformations.dir/Transformations.cpp.o: \
  /usr/include/c++/14/bits/stl_stack.h \
  /home/jharris/Documents/Astrophysics\ Paper/headers/CelestialObject.h \
  /usr/include/c++/14/iostream \
- /home/jharris/Documents/Astrophysics\ Paper/headers/Conversions.h \
  /home/jharris/Documents/Astrophysics\ Paper/headers/Coordinates.h \
+ /home/jharris/Documents/Astrophysics\ Paper/headers/Conversions.h \
  /home/jharris/Documents/Astrophysics\ Paper/headers/OortConstants.h

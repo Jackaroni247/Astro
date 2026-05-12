@@ -1,18 +1,31 @@
 #include <pybind11/pybind11.h>
-#include <Python.h>
 #include "headers/CelestialObject.h"
 #include "headers/OortConstants.h"
 
 using namespace std;
 namespace py = pybind11;
 
-float transform(){
-    cout << getDist(0);
-    return 1.0;
+float getNum(){
+    return getDist(0);
 }
 
-PYBIND11_MODULE(Transformations, Module) {
-	Module.doc() = "Python module written in C++ for astrophysics transformations";
+PYBIND11_MODULE(Transformations, handle) {
+	handle.doc() = "Python module written in C++ for astrophysics transformations";
 
-	Module.def("transform", &transform);
+	py::class_<Coordinate>(handle, "Coordinate")
+	.def(py::init<bool,double,double>())
+	.def("getEQ_RA", &Coordinate::getEQ_RA)
+	.def("getEQ_DEC", &Coordinate::getEQ_DEC)
+	.def("gcTOeq", &Coordinate::gcTOeq)
+	;
+
+
+	py::class_<CelestialObject>(handle, "CelestialObject")
+	.def(py::init<double,double,double,Coordinate>())
+	;
+
+	handle.def("getDist", &getDist);
+	handle.def("calcCV", &calcCV);
+	handle.def("calc_PM_L", &calc_PM_L);
+	handle.def("calc_Galactic_Radius", &calc_Galactic_Radius);
 }

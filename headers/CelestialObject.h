@@ -2,7 +2,7 @@
 #include <string>
 #include <iostream>
 
-#include "Conversions.h"
+#include "Coordinates.h"
 
 using namespace std;
 
@@ -14,6 +14,11 @@ class CelestialObject {
 
     //fundamental properties
     double dist, plax, pMotion;
+
+    //Radial Velocity
+    double rv;
+
+
 
     Coordinate coords;
 
@@ -37,7 +42,7 @@ class CelestialObject {
     //Update the galactic coordinates with the current equatorial coordinates
     void convert() {
         //Conversion equations from equatorial to galactic
-        eqTOgc(coords);
+        coords.eqTOgc();
     }
 
     //print the Motion in the sky

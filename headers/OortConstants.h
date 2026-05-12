@@ -1,5 +1,3 @@
-#include <cmath>
-
 float oortA() {
 	return 0.0;
 }
