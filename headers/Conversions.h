@@ -8,7 +8,7 @@
 
 #define SUNPECULIARMOTION 12.2
 
-#define DEGTORAD (3.14159265358979323846/180.0)
+#define DEGTORAD (3.141592653589/180.0)
 #define RADTODEG (1.0/DEGTORAD)
 
 #define SUNTOCENTER (8.4928586)
@@ -29,20 +29,19 @@ double atan2DEG(double x, double y) {
     return RADTODEG * atan2(x,y);
 }
 
-
 //Gets the distance to search for the degree
-double getDist(double l) {
+double searchDist(double l) {
 	double n = 2.0;
 	double a = pow(14.0,n);
 	double b = pow(2.0,n);
 	double d = 14.0-SUNTOCENTER;
 	double numerator = -b*d + sqrt(
 				a*b*b*pow(cosDEG(l),2) +
-				a*a*b*pow(sinDEG(l),2)) -
+				a*a*b*pow(sinDEG(l),2) -
 				a*b*d*d*pow(sinDEG(l),2)
-				)
+				);
 	double denominator = b*pow(cosDEG(l),2) + a*pow(sinDEG(l),2);
-	return numerator/denominator;
+	return (numerator/denominator);
 }
 
 double calc_Galactic_Radius(double l, double b, double d) {

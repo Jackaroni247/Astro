@@ -35,6 +35,7 @@ CMakeFiles/Transformations.dir/Transformations.cpp.o
  /home/jharris/.local/lib/python3.12/site-packages/pybind11/include/pybind11/trampoline_self_life_support.h
  /home/jharris/.local/lib/python3.12/site-packages/pybind11/include/pybind11/typing.h
  /home/jharris/Documents/Astrophysics Paper/headers/CelestialObject.h
+ /home/jharris/Documents/Astrophysics Paper/headers/Clustering.h
  /home/jharris/Documents/Astrophysics Paper/headers/Conversions.h
  /home/jharris/Documents/Astrophysics Paper/headers/Coordinates.h
  /home/jharris/Documents/Astrophysics Paper/headers/OortConstants.h
@@ -280,6 +281,7 @@ CMakeFiles/Transformations.dir/Transformations.cpp.o
  /usr/include/c++/14/memory
  /usr/include/c++/14/mutex
  /usr/include/c++/14/new
+ /usr/include/c++/14/numbers
  /usr/include/c++/14/optional
  /usr/include/c++/14/ostream
  /usr/include/c++/14/pstl/execution_defs.h
