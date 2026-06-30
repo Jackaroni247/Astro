@@ -1,4 +1,5 @@
 #include <cmath>
+#include <Eigen/Dense>
 
 #define DNGP 27.12825
 #define ANGP 192.85948
@@ -48,7 +49,6 @@ double calc_Galactic_Radius(double l, double b, double d) {
 	return sqrt(pow(SUNTOCENTER,2) + pow(d*cosDEG(b),2) - 2*SUNTOCENTER*cosDEG(b)*cosDEG(l));
 }
 
-
 //Calculate the circular velocity of an object
 double calcCV(double pm_L, double l, double b, double d) {
 	double R = calc_Galactic_Radius(l,b,d);
@@ -61,4 +61,9 @@ double calc_PM_L(double RA, double DEC, double pmRA, double pmDEC) {
 	double a = sinDEG(DNGP) * cosDEG(DEC) - cosDEG(DNGP) * sinDEG(DEC) * cosDEG(RA - ANGP);
 	double b = cosDEG(DNGP) * sinDEG(RA-ANGP);
 	return a*(pmRA*cos(DEC)) + b*pmDEC;
+}
+
+Eigen::MatrixXd Jacobian(double RA, double DEC) {
+	Eigen::MatrixXd a(2,2);
+	return a;
 }

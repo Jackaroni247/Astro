@@ -3,7 +3,6 @@
 #include <cmath>
 
 using namespace Eigen;
-using namespace std;
 
 double getPhaseSpaceDistance(const CelestialObject& a, const CelestialObject& b) {
     return (a.GCCoords.PSVector-b.GCCoords.PSVector).norm();
@@ -15,7 +14,7 @@ double getSimilarity(const CelestialObject& a, const CelestialObject& b) {
 }
 
 // Creates the similarity matrix
-MatrixXd similarityMatrix(const vector<CelestialObject>& dataVector) {
+MatrixXd similarityMatrix(std::vector<CelestialObject> dataVector) {
 	int sizeT = dataVector.size();
 	MatrixXd a(sizeT,sizeT);
     for(size_t i = 0; i < sizeT; i++) {
@@ -23,7 +22,6 @@ MatrixXd similarityMatrix(const vector<CelestialObject>& dataVector) {
 			a(i,j) = getSimilarity(dataVector[i],dataVector[j]);
 		}
     }
-	cout << "Similarity Matrix Created" << '\n';
     return a;
 }
 
@@ -33,23 +31,9 @@ void normalizeMatrix(MatrixXd& input) {
 }
 
 MatrixXd degreeMatrix(const MatrixXd& similarityMatrix) {
-	VectorXd degrees = similarityMatrix.rowwise().sum();
-    MatrixXd degreeMatrix = degrees.asDiagonal();
-    return degreeMatrix;
+    
 }
 
 MatrixXd laplacianMatrix(const MatrixXd& degreeMatrix, const MatrixXd& similarityMatrix) {
-	cout << "Laplacian Matrix Created" << '\n';
-	return degreeMatrix + similarityMatrix;
+    return degreeMatrix - similarityMatrix;
 }
-
-MatrixXd spectralMatrix(const std::vector<CelestialObject> dataVector) {
-	MatrixXd sm = similarityMatrix(dataVector);
-	MatrixXd lm = laplacianMatrix(degreeMatrix(sm),sm);
-	cout << "Starting Eigenvector Solver" << '\n';
-	SelfAdjointEigenSolver<MatrixXd> solver(lm);
-	cout << "Spectral Matrix Created" << '\n';
-	//cout << solver.eigenvectors() << '\n';
-	return solver.eigenvectors();
-}
-
